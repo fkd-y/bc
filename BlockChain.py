@@ -1,11 +1,11 @@
 from hashlib import sha256
 
 class BlockChain:
-    def __init__(self, data = [], nunce=0):
+    def __init__(self, data = [], nonce=0):
         self.data = {
             'prehash':0,
             'data':data,  # any objects
-            'nunce':nunce # Number of once
+            'nonce':nonce # Number of once
         }
         
     def hash(self):
@@ -15,25 +15,25 @@ class BlockChain:
     def get(self):
         return self.data
     
-    def generate(self, data=[], nunce=0):
+    def generate(self, data=[], nonce=0):
         buff = self.get()
         
         self.data = {
             'prehash': self.hash(),
             'data': data,
-            'nunce': nunce
+            'nonce': nonce
         }
         
         return buff
 
 
 if __name__=='__main__':
-    test = BlockChain(data='abc', nunce=0)
+    test = BlockChain(data='abc', nonce=0)
     print(f'{test.hash()}: {test.get()}')
 
-    test.generate(data=['abc','ABC'], nunce=999)
+    test.generate(data=['abc','ABC'], nonce=999)
     print(f'{test.hash()}: {test.get()}')
 
-    test.generate(data=['abc','ABC'], nunce=-1)
+    test.generate(data=['abc','ABC'], nonce=-1)
     for i in range(10):
-        print(f'{test.hash()}: {test.generate(data=[None]*i, nunce=i)}')
+        print(f'{test.hash()}: {test.generate(data=[None]*i, nonce=i)}')
